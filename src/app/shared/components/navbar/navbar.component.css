@@ -1,0 +1,6 @@
+@layer primeng {
+  .p-menubar {
+    background-color: transparent !important;
+    border: none !important;
+  }
+}
