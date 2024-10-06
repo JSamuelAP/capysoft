@@ -1,0 +1,23 @@
+<div class="card">
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <a
+        routerLink="/"
+        pRipple
+        class="p-menuitem-link text-orange-800 font-bold"
+      >
+        <span class="pr-4"> El Rincón del Capibara </span>
+      </a>
+    </ng-template>
+    <ng-template pTemplate="items" let-item>
+      <a
+        [routerLink]="item.route"
+        pRipple
+        class="flex align-items-center p-menuitem-link"
+      >
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
+  </p-menubar>
+</div>

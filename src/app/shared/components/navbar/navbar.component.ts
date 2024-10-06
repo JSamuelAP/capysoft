@@ -1,0 +1,36 @@
+import { Component, OnInit } from '@angular/core';
+
+import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
+
+@Component({
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [MenubarModule],
+  templateUrl: './navbar.component.html',
+})
+export class NavbarComponent implements OnInit {
+  items: MenuItem[] | undefined;
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Productos',
+        route: '/products',
+      },
+      {
+        label: 'Cajas',
+        route: '/register',
+      },
+      {
+        label: 'Ventas',
+        route: '/orders',
+      },
+      {
+        label: 'Salir',
+        icon: 'pi pi-sign-out',
+        route: '/signout',
+      },
+    ];
+  }
+}
