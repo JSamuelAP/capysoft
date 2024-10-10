@@ -1,5 +1,8 @@
 <div class="grid">
-  <div *ngFor="let product of products" class="col-3">
+  <div
+    *ngFor="let product of products"
+    class="col-12 sm:col-6 lg:col-4 xl:col-3"
+  >
     <product-card [product]="product"></product-card>
   </div>
 </div>
