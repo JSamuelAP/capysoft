@@ -1,1 +1,35 @@
-<p>cash-register-table works!</p>
+<p-card header="Cajas">
+  <p-table [value]="cajas" styleClass="p-datatable-lg">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Número</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-caja>
+      <tr>
+        <td>{{ caja.numero }}</td>
+        <td>
+          <cash-switch [caja]="caja" />
+        </td>
+        <td>
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            aria-label="Edit"
+          />
+          <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            aria-label="Delete"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
