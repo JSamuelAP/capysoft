@@ -6,11 +6,18 @@ import { TableModule } from 'primeng/table';
 
 import { Caja } from '../../model/caja.interface';
 import { CashSwitchComponent } from '../cash-switch/cash-switch.component';
+import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 
 @Component({
   selector: 'cash-register-table',
   standalone: true,
-  imports: [ButtonModule, CashSwitchComponent, CardModule, TableModule],
+  imports: [
+    ButtonModule,
+    CashSwitchComponent,
+    CardModule,
+    TableModule,
+    DeleteButtonComponent,
+  ],
   templateUrl: './cash-register-table.component.html',
   styleUrl: './cash-register-table.component.css',
 })

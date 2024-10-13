@@ -1,4 +1,4 @@
-<p-card header="Cajas">
+<p-card header="Cajas registradoras">
   <p-table [value]="cajas" styleClass="p-datatable-lg">
     <ng-template pTemplate="header">
       <tr>
@@ -21,13 +21,7 @@
             severity="info"
             aria-label="Edit"
           />
-          <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [text]="true"
-            severity="danger"
-            aria-label="Delete"
-          />
+          <delete-button [caja]="caja" />
         </td>
       </tr>
     </ng-template>
