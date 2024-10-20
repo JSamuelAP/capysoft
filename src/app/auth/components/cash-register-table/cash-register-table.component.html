@@ -1,0 +1,29 @@
+<p-card header="Cajas registradoras">
+  <p-table [value]="cajas" styleClass="p-datatable-lg">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Número</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-caja>
+      <tr>
+        <td>{{ caja.numero }}</td>
+        <td>
+          <cash-switch [caja]="caja" />
+        </td>
+        <td>
+          <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            aria-label="Edit"
+          />
+          <delete-button [caja]="caja" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

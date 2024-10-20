@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Product } from '../../model/product.interface';
@@ -13,6 +13,9 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 })
 export class ProductsListComponent implements OnInit {
   products: Product[] | undefined;
+
+  @Input()
+  fullWidth: boolean = true;
 
   ngOnInit(): void {
     this.products = [

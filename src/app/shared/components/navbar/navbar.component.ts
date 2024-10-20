@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
         route: '/products',
       },
       {
+        label: 'Admin',
+        route: '/products/admin',
+      },
+      {
         label: 'Cajas',
         route: '/register',
       },
