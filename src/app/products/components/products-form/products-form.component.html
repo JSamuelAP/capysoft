@@ -1,0 +1,38 @@
+<p-card [header]="titulo">
+  <form class="flex flex-column gap-4">
+    <div class="flex flex-column gap-1">
+      <label for="nombre">Nombre</label>
+      <input pInputText type="text" id="nombre" />
+    </div>
+    <div class="flex flex-column gap-1">
+      <label for="precio">Precio</label>
+      <p-inputNumber
+        inputId="precio"
+        class="p-fluid"
+        mode="currency"
+        currency="MXN"
+        locale="es-MX"
+      />
+    </div>
+    <div class="flex flex-column gap-1">
+      <label for="categoria">Categoria</label>
+      <p-dropdown
+        [options]="categorias"
+        optionLabel="nombre"
+        placeholder="Seleccione una categoría"
+        class="p-fluid"
+      />
+    </div>
+    <div class="flex justify-content-center">
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Subir imágen"
+        chooseIcon="pi pi-upload"
+        name="imagen[]"
+        accept="image/*"
+        maxFileSize="1000000"
+      />
+    </div>
+    <p-button label="Agregar" size="large" class="p-fluid" />
+  </form>
+</p-card>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ProductSearchBarComponent } from '../product-search-bar/product-search-bar.component';
 import { ProductsFiltersComponent } from '../products-filters/products-filters.component';
@@ -10,4 +10,7 @@ import { ProductsFiltersComponent } from '../products-filters/products-filters.c
   templateUrl: './products-header.component.html',
   styleUrl: './products-header.component.css',
 })
-export class ProductsHeaderComponent {}
+export class ProductsHeaderComponent {
+  @Input()
+  titulo: string = 'Productos';
+}
