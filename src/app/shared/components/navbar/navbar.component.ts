@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
       },
       {
         label: 'Ventas',
-        route: '/orders',
+        route: '/orders/dashboard',
       },
       {
         label: 'Salir',
