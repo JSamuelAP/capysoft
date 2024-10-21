@@ -1,14 +1,22 @@
 <section class="grid">
   <div class="col-12 md:col-6">
-    <estadistica-card title="Ventas totales" />
+    <estadistica-card title="Ventas totales" [moneyAmount]="total" />
   </div>
   <div class="col-12 md:col-6">
-    <estadistica-card title="Producto más vendido" />
+    <estadistica-card
+      title="Producto más vendido"
+      [product]="masVendido"
+      icon="pi pi-heart-fill"
+    />
   </div>
   <div class="col-12 md:col-6">
-    <estadistica-card title="ventas por caja" />
+    <estadistica-card title="Ventas por caja" [cajas]="cajas" />
   </div>
   <div class="col-12 md:col-6">
-    <estadistica-card title="Productos más vendidos" />
+    <estadistica-card
+      title="Productos más vendidos"
+      [products]="productos"
+      icon="pi pi-heart"
+    />
   </div>
 </section>

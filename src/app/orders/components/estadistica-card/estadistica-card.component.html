@@ -1,6 +1,40 @@
 <p-card>
-  <div class="flex justify-content-between">
+  <div class="flex justify-content-between mb-4">
     <span>{{ title }}</span>
-    <i class="pi pi-times"></i>
+    <i [class]="icon"></i>
+  </div>
+  <div *ngIf="moneyAmount">
+    <span class="font-bold text-5xl text-orange-900">
+      {{ moneyAmount | currency : "USD" : "symbol" : "1.2-2" }}
+    </span>
+  </div>
+  <div
+    *ngIf="product"
+    class="flex justify-content-between font-bold text-5xl text-orange-900"
+  >
+    <span>
+      {{ product.nombre }}
+    </span>
+    <span>{{ product.cantidad }}u</span>
+  </div>
+  <div *ngIf="cajas">
+    <div *ngFor="let caja of cajas">
+      <div class="flex justify-content-between">
+        <span class="font-bold text-orange-900">{{ caja.nombre }}</span>
+        <span>{{ caja.dinero | currency : "USD" : "symbol" : "1.2-2" }}</span>
+      </div>
+      <p-divider />
+    </div>
+  </div>
+  <div *ngIf="products">
+    <div *ngFor="let product of products; index as i">
+      <div class="flex justify-content-between">
+        <span class="font-bold text-orange-900"
+          >{{ i + 2 }}- {{ product.nombre }}</span
+        >
+        <span>{{ product.cantidad }} unidades</span>
+      </div>
+      <p-divider />
+    </div>
   </div>
 </p-card>
