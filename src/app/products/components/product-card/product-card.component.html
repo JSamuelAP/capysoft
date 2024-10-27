@@ -28,16 +28,7 @@
         size="small"
         (onClick)="onButtonEditClick()"
       />
-      <p-button
-        label="Eliminar"
-        severity="danger"
-        class="w-full"
-        styleClass="w-full"
-        icon="pi pi-trash"
-        [outlined]="true"
-        size="small"
-        (onClick)="onButtonDeleteClick()"
-      />
+      <delete-product-button [producto]="product"></delete-product-button>
     </div>
   </ng-template>
 </p-card>
