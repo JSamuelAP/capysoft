@@ -7,6 +7,10 @@
       'lg:col-6 xl:col-4': !fullWidth
     }"
   >
-    <product-card [product]="product"></product-card>
+    <product-card
+      [product]="product"
+      [pickable]="isOrderList"
+      [editable]="isAdminList"
+    ></product-card>
   </div>
 </div>
