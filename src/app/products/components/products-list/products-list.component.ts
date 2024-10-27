@@ -17,6 +17,12 @@ export class ProductsListComponent implements OnInit {
   @Input()
   fullWidth: boolean = true;
 
+  @Input()
+  isAdminList: boolean = false;
+
+  @Input()
+  isOrderList: boolean = false;
+
   ngOnInit(): void {
     this.products = [
       {

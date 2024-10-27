@@ -9,4 +9,26 @@
     <h2 class="text-lg font-bold my-0">{{ product.nombre }}</h2>
     <span class="text-orange-800">${{ product.precio }}</span>
   </div>
+  <ng-template *ngIf="pickable" pTemplate="footer">
+    <p-button
+      label="Seleccionar"
+      styleClass="w-full"
+      (onClick)="onButtonSelectClick()"
+    />
+  </ng-template>
+  <ng-template *ngIf="editable" pTemplate="footer">
+    <div class="flex gap-3 mt-1">
+      <p-button
+        label="Editar"
+        severity="info"
+        class="w-full"
+        styleClass="w-full"
+        icon="pi pi-pencil"
+        [outlined]="true"
+        size="small"
+        (onClick)="onButtonEditClick()"
+      />
+      <delete-product-button [producto]="product"></delete-product-button>
+    </div>
+  </ng-template>
 </p-card>
