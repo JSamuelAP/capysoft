@@ -1,0 +1,14 @@
+.label-text-color{
+    color: #78350F;
+    font-weight: 600;
+}
+
+.btn-cobrar{
+    background: #78350F;
+    border: 1px solid #F59E0B;
+    border-radius: 1.2vh;
+}
+
+.btn-cobrar:hover {
+    background-color: #B45309;
+}

@@ -14,8 +14,10 @@ import { Caja } from '../../model/caja.interface';
 export class EstadisticaGridComponent {
   total: number = 2500;
   masVendido: Product = {
+    id: 1,
     nombre: 'Capuccino',
     cantidad: 12,
+    precio: 4,
   };
   cajas: Caja[] = [
     { nombre: 'Caja 003', dinero: 1500 },
@@ -24,9 +26,9 @@ export class EstadisticaGridComponent {
     { nombre: 'Caja 004', dinero: 200 },
   ];
   productos: Product[] = [
-    { nombre: 'Café Americano', cantidad: 10 },
-    { nombre: 'Latte', cantidad: 7 },
-    { nombre: 'Sandwich de pollo', cantidad: 2 },
-    { nombre: 'Pay de queso', cantidad: 1 },
+    { id: 1, nombre: 'Café Americano', cantidad: 10, precio:5 },
+    { id: 2, nombre: 'Latte', cantidad: 7, precio:10},
+    { id: 3, nombre: 'Sandwich de pollo', cantidad: 2, precio:9},
+    { id: 4, nombre: 'Pay de queso', cantidad: 1 , precio:7},
   ];
 }
