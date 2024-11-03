@@ -1,0 +1,31 @@
+<div
+  class="flex flex-column justify-content-center align-items-center gap-5 mt-3"
+>
+  <p-floatLabel>
+    <input
+      class="input-color"
+      pInputText
+      class="input-color w-20rem"
+      id="username"
+      [(ngModel)]="usuario"
+    />
+    <label class="label-text-color" for="username">Usuario</label>
+  </p-floatLabel>
+  <p-floatLabel>
+    <input
+      pInputText
+      type="password"
+      class="input-color w-20rem"
+      [(ngModel)]="password"
+    />
+    <label class="label-text-color" for="password">Contraseña</label>
+  </p-floatLabel>
+</div>
+<div class="card flex justify-content-center mt-4">
+  <button
+    pButton
+    label="Iniciar sesión"
+    class="btn-sesion text-white w-20rem"
+    (click)="retorna()"
+  ></button>
+</div>

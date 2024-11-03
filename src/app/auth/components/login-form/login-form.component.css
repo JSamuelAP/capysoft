@@ -1,0 +1,19 @@
+.btn-sesion{
+    background: #78350F;
+    border: 1px solid #F59E0B;
+    border-radius: 1.2vh;
+}
+
+.btn-sesion:hover {
+    background-color: #B45309;
+}
+
+.label-text-color{
+    color: #78350F;
+    font-weight: 600;
+}
+
+.input-color{
+    border: 1px solid #FCD34D;
+    border-radius: 1.2vh;
+}
