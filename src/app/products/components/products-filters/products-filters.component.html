@@ -1,6 +1,6 @@
 <div class="flex gap-3">
-  <p-button>Todos</p-button>
-  <p-button>Bebidas</p-button>
-  <p-button>Postres</p-button>
-  <p-button>Comidas</p-button>
+  <p-button (onClick)="onClick()">Todos</p-button>
+  <p-button (onClick)="onClick('bebida')">Bebidas</p-button>
+  <p-button (onClick)="onClick('postre')">Postres</p-button>
+  <p-button (onClick)="onClick('comida')">Comidas</p-button>
 </div>
