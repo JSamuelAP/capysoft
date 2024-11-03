@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 import { Product } from '../model/product.interface';
 
@@ -59,6 +59,9 @@ export class ProductService {
     },
   ];
 
+  private productSource = new Subject<Product>();
+  product$ = this.productSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
@@ -69,5 +72,22 @@ export class ProductService {
     return of(
       this.products.filter((product) => product.categoria === category)
     );
+  }
+
+  createProduct(product: Product): Observable<Product> {
+    this.products.push(product);
+    return of(product);
+  }
+
+  editProduct(product: Product): Observable<Product> {
+    this.products = this.products.map((p) => {
+      if (p.id === product.id) p = product;
+      return p;
+    });
+    return of(product);
+  }
+
+  emitProudct(product: Product) {
+    this.productSource.next(product);
   }
 }
