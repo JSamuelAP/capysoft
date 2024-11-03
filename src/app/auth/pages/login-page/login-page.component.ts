@@ -1,34 +1,16 @@
-import { Component, Input } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { Component, } from '@angular/core';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { CardLoginComponent } from '../../components/login-card/login-card.component';
 
 @Component({
   selector: 'auth-login-page',
   standalone: true,
   imports: [
-    CardModule,
-    PasswordModule,
-    InputTextModule,
-    FloatLabelModule,
-    FormsModule,
-    ButtonModule
+    CardLoginComponent,
+    LoginFormComponent
   ],
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
 })
-export class LoginPageComponent {
-  usuario: string = '';
-
-  password: string = '';
-
-  retorna = () => {
-    const datos = {usuario: this.usuario, password: this.password}
-    console.log(datos);
-    return datos;
-  }
-
-}
+export class LoginPageComponent {}
+  
