@@ -1,5 +1,5 @@
 <div class="flex align-items-center gap-2">
-  <p-inputSwitch [(ngModel)]="caja.estado" />
+  <p-inputSwitch [(ngModel)]="caja.estado" (onChange)="changeStatus()" />
   <span>
     {{ caja.estado ? "Activa" : "Inactiva" }}
   </span>
