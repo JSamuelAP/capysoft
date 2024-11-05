@@ -1,0 +1,48 @@
+<div class="flex flex-column gap-3">
+  <div class="flex justify-content-between align-items-center">
+    <h3>Subtotal</h3>
+    <h3>{{total}}</h3>
+  </div>
+  <div class="flex justify-content-between align-items-center">
+    <h3>Propina</h3>
+    <p>$<input type="number" [(ngModel)]="propina" (input)="actualizarTotalConPropina()" style="width: 40px;" min="0"></p>
+  </div>
+  <div class="flex justify-content-between align-items-center">
+    <h3>Total</h3>
+    <h3>{{baseTotal}}</h3>
+  </div>
+  <div class="card flex justify-content-center">
+    <p-toast />
+    <p-confirmDialog #cd>
+        <ng-template pTemplate="headless" let-message>
+            <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+                <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem">
+                    <i class="text-5xl">        
+                      <img class="w-8rem" alt="Card" src="../../../../assets/logo-g.png" />
+                    </i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-4">
+                    {{ message.header }}
+                </span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex align-items-center gap-2 mt-4">
+                    <button 
+                        pButton 
+                        label="Cobrar" 
+                        (click)="cd.accept()" 
+                        class="w-8rem btn-cobrar text-white">
+                    </button>
+                    <button 
+                        pButton 
+                        label="Cancelar"
+                        (click)="cd.reject()" 
+                        class="w-8rem btn-cobrar text-white">
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-confirmDialog>
+    <p-button (onClick)="pagarCuenta()"  label="Finalizar Venta" class="text-white btn-cobrar" />
+    </div>
+</div>
+

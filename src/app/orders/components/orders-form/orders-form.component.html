@@ -1,0 +1,21 @@
+<p-card header="Pedidos de Productos">
+  <div *ngFor="let product of products" class="flex flex-column gap-3">
+    <div class="flex justify-content-between align-items-center gap-2">
+      <div class="flex flex-column">
+        <span>{{ product.nombre }}</span>
+        <span>{{ "$" + product.precio }}</span>
+      </div>
+      <orders-ammount
+        [id]="product.id"
+        [precio]="product.precio"
+        [ammount]="product.cantidad"
+        (subtotalChange)="actualizarTotal($event)"
+      ></orders-ammount>
+    </div>
+    <hr />
+  </div>
+  <div>
+    <pay-orders [total]="total" [products]="products" (limpiarProductos)="handleLimpiarProductos()">
+      ></pay-orders>
+  </div>
+</p-card>

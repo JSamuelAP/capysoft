@@ -1,0 +1,14 @@
+<header>
+    <products-header titulo="Administrador de productos"></products-header>
+  </header>
+  <section class="mt-4">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-4 md:flex-order-1">
+       <orders-form></orders-form>
+      </div>
+      <div class="col-12 md:col-6 lg:col-8 md:flex-order-0">
+        <products-list [isOrderList]="true" [fullWidth]="false"></products-list>
+      </div>
+    </div>
+  </section>
+  
