@@ -1,11 +1,20 @@
-  <div class="flex flex-row gap-2 flex-wrap">
-    <div>
-      <button (click)="increment()" class="btn-add">+</button>
-    </div>
-    <div>
-        {{ammount}}
-    </div>
-    <div>
-      <button (click)="decrement()" class="btn-less">-</button>
-    </div>
+<div class="flex align-items-center gap-3 flex-wrap">
+  <p-button
+    icon="pi pi-minus"
+    [rounded]="true"
+    [outlined]="true"
+    (onClick)="decrement()"
+    size="small"
+    class="font-bold"
+  />
+  <span>
+    {{ ammount }}
+  </span>
+  <p-button
+    icon="pi pi-plus"
+    [rounded]="true"
+    [outlined]="true"
+    (onClick)="increment()"
+    size="small"
+  />
 </div>

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { DividerModule } from 'primeng/divider';
 import { PayOrdersComponent } from '../pay-orders/pay-orders.component';
 import { OrdersAmmountComponent } from '../orders-ammount/orders-ammount.component';
+
 import { Product } from '../../model/product.interface';
 
 @Component({
@@ -11,6 +14,7 @@ import { Product } from '../../model/product.interface';
   imports: [
     CommonModule,
     CardModule,
+    DividerModule,
     PayOrdersComponent,
     OrdersAmmountComponent,
   ],
@@ -18,7 +22,6 @@ import { Product } from '../../model/product.interface';
   styleUrl: './orders-form.component.css',
 })
 export class OrdersFormComponent {
-  
   products: Product[] = [
     {
       id: 1,
@@ -44,22 +47,27 @@ export class OrdersFormComponent {
   subtotales: { [key: number]: number } = {};
 
   ngOnInit() {
-    this.products.forEach(product => {
+    this.products.forEach((product) => {
       const subtotal = product.precio * product.cantidad;
       this.subtotales[product.id] = subtotal;
     });
     this.calcularTotal();
   }
 
-  actualizarTotal({id, subtotal}: {id: number, subtotal: number}) {
+  actualizarTotal({ id, subtotal }: { id: number; subtotal: number }) {
     this.subtotales[id] = subtotal;
     this.calcularTotal();
+  }
+
+  calcularTotal = () => {
+    this.total = Object.values(this.subtotales).reduce(
+      (acc, curr) => acc + curr,
+      0
+    );
   };
 
-  calcularTotal = () => {this.total = Object.values(this.subtotales).reduce((acc, curr) => acc + curr, 0)};
-
-  handleLimpiarProductos = () => { 
+  handleLimpiarProductos = () => {
     this.products = [];
     this.total = 0;
-  }
+  };
 }
