@@ -35,6 +35,11 @@ export class OrdersAmmountComponent {
     }
   };
 
+  remove = () => {
+    this.ammount = 0;
+    this.actualizarSubtotal();
+  };
+
   actualizarSubtotal = () => {
     this.subtotal = this.ammount * this.precio;
     this.subtotalChange.emit({ id: this.id, subtotal: this.subtotal });
