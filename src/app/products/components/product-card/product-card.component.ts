@@ -33,11 +33,14 @@ export class ProductCardComponent {
   constructor(private productService: ProductService) {}
 
   onButtonSelectClick() {
-    // TODO: Cargar producto a la orden
-    console.log(this.product);
+    this.emitProduct();
   }
 
   onButtonEditClick() {
+    this.emitProduct();
+  }
+
+  emitProduct() {
     this.productService.emitProudct(this.product);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { PayOrdersComponent } from '../pay-orders/pay-orders.component';
 import { OrdersAmmountComponent } from '../orders-ammount/orders-ammount.component';
 
 import { Product } from '../../model/product.interface';
+import { ProductService } from '../../../products/services/product.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'orders-form',
@@ -21,32 +23,25 @@ import { Product } from '../../model/product.interface';
   templateUrl: './orders-form.component.html',
   styleUrl: './orders-form.component.css',
 })
-export class OrdersFormComponent {
-  products: Product[] = [
-    {
-      id: 1,
-      nombre: 'Cafe Americano',
-      precio: 5.0,
-      cantidad: 1,
-    },
-    {
-      id: 2,
-      nombre: 'Sandwich de Pollo',
-      precio: 8.0,
-      cantidad: 1,
-    },
-    {
-      id: 3,
-      nombre: 'Pay de Queso',
-      precio: 7.5,
-      cantidad: 1,
-    },
-  ];
+export class OrdersFormComponent implements OnInit {
+  products: Product[] = [];
 
   total: number = 0;
   subtotales: { [key: number]: number } = {};
 
+  constructor(
+    private productService: ProductService,
+    private orderService: OrderService
+  ) {}
+
   ngOnInit() {
+    this.products = this.orderService.getProductos();
+    this.productService.product$.subscribe((product) => {
+      if (product) {
+        this.orderService.agregarProducto({ ...product, cantidad: 1 });
+      }
+    });
+
     this.products.forEach((product) => {
       const subtotal = product.precio * product.cantidad;
       this.subtotales[product.id] = subtotal;
@@ -55,8 +50,10 @@ export class OrdersFormComponent {
   }
 
   actualizarTotal({ id, subtotal }: { id: number; subtotal: number }) {
+    if (subtotal === 0) this.orderService.quitarProducto(id);
     this.subtotales[id] = subtotal;
     this.calcularTotal();
+    this.products = this.orderService.getProductos();
   }
 
   calcularTotal = () => {

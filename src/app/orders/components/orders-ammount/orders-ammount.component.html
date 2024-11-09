@@ -1,5 +1,13 @@
 <div class="flex align-items-center gap-3 flex-wrap">
   <p-button
+    (onClick)="remove()"
+    icon="pi pi-cart-minus"
+    [rounded]="true"
+    size="small"
+    severity="danger"
+    [text]="true"
+  />
+  <p-button
     icon="pi pi-minus"
     [rounded]="true"
     [outlined]="true"
