@@ -17,7 +17,6 @@ export class ProductsFiltersComponent {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { category },
-      queryParamsHandling: 'merge',
     });
   }
 }

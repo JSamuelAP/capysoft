@@ -74,6 +74,12 @@ export class ProductService {
     );
   }
 
+  getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
+    return of(
+      this.products.filter((product) => product.nombre.includes(searchTerm))
+    );
+  }
+
   createProduct(product: Product): Observable<Product> {
     this.products.push(product);
     return of(product);

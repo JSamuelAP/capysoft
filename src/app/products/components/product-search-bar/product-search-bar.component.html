@@ -4,6 +4,12 @@
     pInputText
     placeholder="Buscar por nombre"
     class="w-full"
+    [(ngModel)]="searchTerm"
+    (keydown.enter)="search()"
   />
-  <p-button><span class="pi pi-search text-white"></span></p-button>
+  <p-button
+    (onClick)="search()"
+    icon="pi pi-search"
+    [style]="{ color: 'white' }"
+  />
 </div>
