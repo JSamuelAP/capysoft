@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -6,13 +6,18 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FileUploadModule } from 'primeng/fileupload';
+import {
+  FileSelectEvent,
+  FileUpload,
+  FileUploadModule,
+} from 'primeng/fileupload';
 
 import { Categoria } from '../../model/categoria.interface';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../model/product.interface';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'products-form',
@@ -20,6 +25,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     ButtonModule,
     CardModule,
+    CommonModule,
     DropdownModule,
     FileUploadModule,
     InputNumberModule,
@@ -40,8 +46,10 @@ export class ProductsFormComponent implements OnInit {
     nombre: [''],
     precio: [''],
     categoria: [null],
+    foto: [null],
   };
   isEditing: boolean = false;
+  @ViewChild('fileUpload') fileUpload!: FileUpload;
 
   constructor(
     private fb: FormBuilder,
@@ -71,6 +79,17 @@ export class ProductsFormComponent implements OnInit {
     });
   }
 
+  onSelect(event: FileSelectEvent) {
+    if (event.currentFiles.length > 0) {
+      const file = event.currentFiles[0];
+      if (file.type.includes('image')) {
+        this.form.patchValue({
+          foto: file,
+        });
+      }
+    }
+  }
+
   onCancel() {
     this.reset();
   }
@@ -78,6 +97,7 @@ export class ProductsFormComponent implements OnInit {
   reset() {
     this.isEditing = false;
     this.form = this.fb.group(this.defaultValues);
+    this.fileUpload.clear();
   }
 
   onSubmit() {
