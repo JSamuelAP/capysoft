@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 
 import { Product } from '../model/product.interface';
+import { ProductWithPhoto } from '../model/productWithPhoto';
 
 @Injectable({
   providedIn: 'root',
@@ -74,16 +75,33 @@ export class ProductService {
     );
   }
 
-  createProduct(product: Product): Observable<Product> {
+  getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
+    return of(
+      this.products.filter((product) => product.nombre.includes(searchTerm))
+    );
+  }
+
+  createProduct(product: ProductWithPhoto): Observable<Product> {
     this.products.push(product);
+    if (product.foto)
+      this.uploadPhoto(product.foto, 1).subscribe((data) => console.log(data));
     return of(product);
   }
 
-  editProduct(product: Product): Observable<Product> {
+  uploadPhoto(archivo: File, id: number): Observable<Object> {
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    formData.append('id', id.toString());
+    return of({ archivo, id });
+  }
+
+  editProduct(product: ProductWithPhoto): Observable<Product> {
     this.products = this.products.map((p) => {
       if (p.id === product.id) p = product;
       return p;
     });
+    if (product.foto)
+      this.uploadPhoto(product.foto, 1).subscribe((data) => console.log(data));
     return of(product);
   }
 
