@@ -60,12 +60,12 @@
               pButton
               label="Cancelar"
               (click)="cd.reject()"
-              class="w-8rem btn-cobrar text-white"
+              class="w-8rem btn-cancelar-venta text-white"
             ></button>
           </div>
         </div>
       </ng-template>
     </p-confirmDialog>
-    <p-button (onClick)="pagarCuenta()" label="Finalizar Venta" />
+    <p-button (onClick)="pagarCuenta()" label="Finalizar Venta" [disabled]="products.length > 0 ? false : true"/>
   </div>
 </div>
