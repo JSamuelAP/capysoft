@@ -30,7 +30,7 @@ export class ProductCardComponent {
   @Input()
   editable: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(public productService: ProductService) {}
 
   onButtonSelectClick() {
     this.emitProduct();

@@ -107,12 +107,16 @@ export class ProductsFormComponent implements OnInit {
         .subscribe(this.showMessage);
     else
       this.productService
-        .createProduct(this.form.value)
+        .createProduct({
+          ...this.form.value,
+          categoriaProducto: this.form.value.categoriaProducto.nombre,
+        })
         .subscribe(this.showMessage);
     this.reset();
   }
 
   showMessage = (producto: Product) => {
+    console.log(producto);
     this.messageService.add({
       severity: 'success',
       summary: `Producto ${

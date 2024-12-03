@@ -1,9 +1,6 @@
 <p-card>
   <ng-template pTemplate="header">
-    <img
-      alt="Card"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRikeyNR99uv1_ZZ4nBrsBEqYXjyvb4v__RAQ&s"
-    />
+    <img alt="Card" [src]="productService.getImgUrl(product)" />
   </ng-template>
   <div class="flex justify-content-between align-items-center">
     <h2 class="text-lg font-bold my-0">{{ product.nombreProducto }}</h2>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { map, Observable, of, Subject } from 'rxjs';
 
 import { Product } from '../model/product.interface';
 import { ProductWithPhoto } from '../model/productWithPhoto';
@@ -9,72 +9,16 @@ import { ProductWithPhoto } from '../model/productWithPhoto';
   providedIn: 'root',
 })
 export class ProductService {
-  products: Product[] = [
-    {
-      idProducto: 1,
-      nombreProducto: 'Café Americano',
-      precioProducto: 20.75,
-      categoriaProducto: 'bebida',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 2,
-      nombreProducto: 'Café Expresso',
-      precioProducto: 21.0,
-      categoriaProducto: 'bebida',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 3,
-      nombreProducto: 'Pay de queso',
-      precioProducto: 18.25,
-      categoriaProducto: 'postre',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 4,
-      nombreProducto: 'Sandwich de pollo',
-      precioProducto: 18.25,
-      categoriaProducto: 'comida',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 5,
-      nombreProducto: 'Café Americano',
-      precioProducto: 20.75,
-      categoriaProducto: 'bebida',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 6,
-      nombreProducto: 'Café Expresso',
-      precioProducto: 21.0,
-      categoriaProducto: 'bebida',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 7,
-      nombreProducto: 'Pay de queso',
-      precioProducto: 18.25,
-      categoriaProducto: 'postre',
-      imagenProducto: '',
-    },
-    {
-      idProducto: 8,
-      nombreProducto: 'Sandwich de pollo',
-      precioProducto: 18.25,
-      categoriaProducto: 'comida',
-      imagenProducto: '',
-    },
-  ];
+  products: Product[] = [];
 
   private productSource = new Subject<Product>();
   product$ = this.productSource.asObservable();
+  private API_URL = 'http://192.168.0.101:8090/api/products/producto';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return of(this.products);
+    return this.http.get<Product[]>(this.API_URL);
   }
 
   getProductsByCategory(category: string): Observable<Product[]> {
@@ -92,17 +36,26 @@ export class ProductService {
   }
 
   createProduct(product: ProductWithPhoto): Observable<Product> {
-    this.products.push(product);
-    if (product.foto)
-      this.uploadPhoto(product.foto, 1).subscribe((data) => console.log(data));
-    return of(product);
+    return this.http.post<Product>(this.API_URL, product).pipe(
+      map((response) => {
+        if (product.foto) {
+          this.uploadPhoto(product.foto, response.idProducto).subscribe(
+            (data) => {
+              response = data['producto'];
+              return response;
+            }
+          );
+        }
+        return response;
+      })
+    );
   }
 
-  uploadPhoto(archivo: File, id: number): Observable<Object> {
+  uploadPhoto(archivo: File, id: number): Observable<any> {
     const formData = new FormData();
     formData.append('archivo', archivo);
     formData.append('id', id.toString());
-    return of({ archivo, id });
+    return this.http.post(`${this.API_URL}/upload`, formData);
   }
 
   editProduct(product: ProductWithPhoto): Observable<Product> {
@@ -117,5 +70,9 @@ export class ProductService {
 
   emitProudct(product: Product) {
     this.productSource.next(product);
+  }
+
+  getImgUrl(product: Product): string {
+    return `${this.API_URL}/upload/img/${product.imagenProducto}`;
   }
 }
