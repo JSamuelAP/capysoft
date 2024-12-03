@@ -31,6 +31,9 @@ export class ProductsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.productService.products$.subscribe((data) => {
+      this.products = data;
+    });
     this.route.queryParams.subscribe((params) => {
       const category: string = params['category'];
       const searchTerm: string = params['q'];
@@ -44,10 +47,12 @@ export class ProductsListComponent implements OnInit {
           .getProductsBySearchTerm(searchTerm)
           .subscribe((data) => (this.products = data));
       } else {
-        this.productService
-          .getProducts()
-          .subscribe((data) => (this.products = data));
+        this.loadProducts();
       }
     });
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts();
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, Subject } from 'rxjs';
 
 import { Product } from '../model/product.interface';
 import { ProductWithPhoto } from '../model/productWithPhoto';
@@ -9,30 +9,26 @@ import { ProductWithPhoto } from '../model/productWithPhoto';
   providedIn: 'root',
 })
 export class ProductService {
-  products: Product[] = [];
-
   private productSource = new Subject<Product>();
   product$ = this.productSource.asObservable();
+  private products = new BehaviorSubject<Product[]>([]);
+  products$ = this.products.asObservable();
   private API_URL = 'http://localhost:8090/api/products/producto';
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.API_URL);
+  getProducts() {
+    this.http.get<Product[]>(this.API_URL).subscribe((data) => {
+      this.products.next(data);
+    });
   }
 
   getProductsByCategory(category: string): Observable<Product[]> {
-    return of(
-      this.products.filter((product) => product.categoriaProducto === category)
-    );
+    return of([]);
   }
 
   getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
-    return of(
-      this.products.filter((product) =>
-        product.nombreProducto.includes(searchTerm)
-      )
-    );
+    return of([]);
   }
 
   createProduct(product: ProductWithPhoto): Observable<Product> {
@@ -59,13 +55,16 @@ export class ProductService {
   }
 
   editProduct(product: ProductWithPhoto): Observable<Product> {
-    this.products = this.products.map((p) => {
-      if (p.idProducto === product.idProducto) p = product;
-      return p;
-    });
-    if (product.foto)
-      this.uploadPhoto(product.foto, 1).subscribe((data) => console.log(data));
     return of(product);
+  }
+
+  deleteProduct(product: ProductWithPhoto) {
+    this.http.delete(`${this.API_URL}/${product.idProducto}`).subscribe(() => {
+      const updatedProducts = this.products.value.filter(
+        (p) => p.idProducto !== product.idProducto
+      );
+      this.products.next(updatedProducts);
+    });
   }
 
   emitProudct(product: Product) {
