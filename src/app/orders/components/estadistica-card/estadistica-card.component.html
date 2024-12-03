@@ -13,9 +13,9 @@
     class="flex justify-content-between font-bold text-5xl text-orange-900"
   >
     <span>
-      {{ product.nombre }}
+      {{ product.nombreProducto }}
     </span>
-    <span>{{ product.cantidad }}u</span>
+    <span>{{ product.cantidadProducto }}u</span>
   </div>
   <div *ngIf="cajas">
     <div *ngFor="let caja of cajas">
@@ -30,9 +30,9 @@
     <div *ngFor="let product of products; index as i">
       <div class="flex justify-content-between">
         <span class="font-bold text-orange-900"
-          >{{ i + 2 }}- {{ product.nombre }}</span
+          >{{ i + 2 }}- {{ product.nombreProducto }}</span
         >
-        <span>{{ product.cantidad }} unidades</span>
+        <span>{{ product.cantidadProducto }} unidades</span>
       </div>
       <p-divider />
     </div>

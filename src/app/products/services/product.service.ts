@@ -11,52 +11,60 @@ import { ProductWithPhoto } from '../model/productWithPhoto';
 export class ProductService {
   products: Product[] = [
     {
-      id: 1,
-      nombre: 'Café Americano',
-      precio: 20.75,
-      categoria: 'bebida',
+      idProducto: 1,
+      nombreProducto: 'Café Americano',
+      precioProducto: 20.75,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
     },
     {
-      id: 2,
-      nombre: 'Café Expresso',
-      precio: 21.0,
-      categoria: 'bebida',
+      idProducto: 2,
+      nombreProducto: 'Café Expresso',
+      precioProducto: 21.0,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
     },
     {
-      id: 3,
-      nombre: 'Pay de queso',
-      precio: 18.25,
-      categoria: 'postre',
+      idProducto: 3,
+      nombreProducto: 'Pay de queso',
+      precioProducto: 18.25,
+      categoriaProducto: 'postre',
+      imagenProducto: '',
     },
     {
-      id: 4,
-      nombre: 'Sandwich de pollo',
-      precio: 18.25,
-      categoria: 'comida',
+      idProducto: 4,
+      nombreProducto: 'Sandwich de pollo',
+      precioProducto: 18.25,
+      categoriaProducto: 'comida',
+      imagenProducto: '',
     },
     {
-      id: 5,
-      nombre: 'Café Americano',
-      precio: 20.75,
-      categoria: 'bebida',
+      idProducto: 5,
+      nombreProducto: 'Café Americano',
+      precioProducto: 20.75,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
     },
     {
-      id: 6,
-      nombre: 'Café Expresso',
-      precio: 21.0,
-      categoria: 'bebida',
+      idProducto: 6,
+      nombreProducto: 'Café Expresso',
+      precioProducto: 21.0,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
     },
     {
-      id: 7,
-      nombre: 'Pay de queso',
-      precio: 18.25,
-      categoria: 'postre',
+      idProducto: 7,
+      nombreProducto: 'Pay de queso',
+      precioProducto: 18.25,
+      categoriaProducto: 'postre',
+      imagenProducto: '',
     },
     {
-      id: 8,
-      nombre: 'Sandwich de pollo',
-      precio: 18.25,
-      categoria: 'comida',
+      idProducto: 8,
+      nombreProducto: 'Sandwich de pollo',
+      precioProducto: 18.25,
+      categoriaProducto: 'comida',
+      imagenProducto: '',
     },
   ];
 
@@ -71,13 +79,15 @@ export class ProductService {
 
   getProductsByCategory(category: string): Observable<Product[]> {
     return of(
-      this.products.filter((product) => product.categoria === category)
+      this.products.filter((product) => product.categoriaProducto === category)
     );
   }
 
   getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
     return of(
-      this.products.filter((product) => product.nombre.includes(searchTerm))
+      this.products.filter((product) =>
+        product.nombreProducto.includes(searchTerm)
+      )
     );
   }
 
@@ -97,7 +107,7 @@ export class ProductService {
 
   editProduct(product: ProductWithPhoto): Observable<Product> {
     this.products = this.products.map((p) => {
-      if (p.id === product.id) p = product;
+      if (p.idProducto === product.idProducto) p = product;
       return p;
     });
     if (product.foto)

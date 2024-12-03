@@ -1,6 +1,5 @@
-export interface Product {
-  id: number;
-  nombre: string;
-  precio: number;
-  cantidad: number;
+import { Product } from '../../products/model/product.interface';
+
+export interface ProductOrder extends Product {
+  cantidadProducto: number;
 }

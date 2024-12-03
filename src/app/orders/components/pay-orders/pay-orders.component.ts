@@ -14,7 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { InputNumberModule } from 'primeng/inputnumber';
 
-import { Product } from '../../model/product.interface';
+import { ProductOrder } from '../../model/product.interface';
 
 @Component({
   selector: 'pay-orders',
@@ -33,7 +33,7 @@ import { Product } from '../../model/product.interface';
 })
 export class PayOrdersComponent {
   @Input() total!: number; // Total sin propina
-  @Input() products!: Product[];
+  @Input() products!: ProductOrder[];
   @Output() limpiarProductos = new EventEmitter<void>();
   baseTotal: number = 0; // Total incluyendo propina
   propina: number = 0;
