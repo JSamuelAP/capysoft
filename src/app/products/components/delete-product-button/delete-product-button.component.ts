@@ -27,7 +27,7 @@ export class DeleteProductButtonComponent {
   confirm(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `¿Estás seguro de querer eliminar el producto ${this.producto.nombre}?`,
+      message: `¿Estás seguro de querer eliminar el producto ${this.producto.nombreProducto}?`,
       header: 'Eliminar',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
@@ -38,8 +38,8 @@ export class DeleteProductButtonComponent {
       accept: () => {
         this.messageService.add({
           severity: 'success',
-          summary: `Producto ${this.producto.id} eliminado`,
-          detail: this.producto.nombre,
+          summary: `Producto ${this.producto.idProducto} eliminado`,
+          detail: this.producto.nombreProducto,
         });
       },
     });

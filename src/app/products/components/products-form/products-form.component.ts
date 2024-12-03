@@ -42,10 +42,10 @@ export class ProductsFormComponent implements OnInit {
   selectedCategoria: Categoria | undefined;
   form: FormGroup;
   defaultValues = {
-    id: [''],
-    nombre: [''],
-    precio: [''],
-    categoria: [null],
+    idProducto: [''],
+    nombreProducto: [''],
+    precioProducto: [''],
+    categoriaProducto: [null],
     foto: [null],
   };
   isEditing: boolean = false;
@@ -72,7 +72,7 @@ export class ProductsFormComponent implements OnInit {
         this.form.patchValue({
           ...product,
           categoria: this.categorias?.find(
-            (category) => category.nombre === product.categoria
+            (category) => category.nombre === product.categoriaProducto
           ),
         });
       }
@@ -118,7 +118,7 @@ export class ProductsFormComponent implements OnInit {
       summary: `Producto ${
         this.isEditing ? 'actualizado' : 'creado'
       } con éxito`,
-      detail: producto.nombre,
+      detail: producto.nombreProducto,
     });
   };
 }

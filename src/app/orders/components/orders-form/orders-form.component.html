@@ -1,15 +1,17 @@
 <p-card header="Pedidos de Productos">
-<div *ngIf="products.length > 0">
+  <div *ngIf="products.length > 0">
     <div *ngFor="let product of products" class="mb-4">
       <div class="flex justify-content-between align-items-center gap-2">
         <div class="flex flex-column">
-          <span>{{ product.nombre }}</span>
-          <span class="text-orange-800">{{ "$" + product.precio }}</span>
+          <span>{{ product.nombreProducto }}</span>
+          <span class="text-orange-800">{{
+            "$" + product.precioProducto
+          }}</span>
         </div>
         <orders-ammount
-          [id]="product.id"
-          [precio]="product.precio"
-          [ammount]="product.cantidad"
+          [id]="product.idProducto"
+          [precio]="product.precioProducto"
+          [ammount]="product.cantidadProducto"
           (subtotalChange)="actualizarTotal($event)"
         ></orders-ammount>
       </div>
@@ -19,14 +21,13 @@
   <div *ngIf="products.length === 0" class="empty-products-message">
     <span class="icon-warning">ℹ️</span>
     <span>Favor de agregar productos para continuar con la venta</span>
-  </div>  
+  </div>
   <div>
     <pay-orders
       [total]="total"
       [products]="products"
       (limpiarProductos)="handleLimpiarProductos()"
     >
-    </pay-orders
-    >
+    </pay-orders>
   </div>
 </p-card>

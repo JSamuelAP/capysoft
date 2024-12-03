@@ -6,7 +6,7 @@ import { DividerModule } from 'primeng/divider';
 import { PayOrdersComponent } from '../pay-orders/pay-orders.component';
 import { OrdersAmmountComponent } from '../orders-ammount/orders-ammount.component';
 
-import { Product } from '../../model/product.interface';
+import { ProductOrder } from '../../model/product.interface';
 import { ProductService } from '../../../products/services/product.service';
 import { OrderService } from '../../services/order.service';
 
@@ -24,7 +24,7 @@ import { OrderService } from '../../services/order.service';
   styleUrl: './orders-form.component.css',
 })
 export class OrdersFormComponent implements OnInit {
-  products: Product[] = [];
+  products: ProductOrder[] = [];
 
   total: number = 0;
   subtotales: { [key: number]: number } = {};
@@ -38,13 +38,13 @@ export class OrdersFormComponent implements OnInit {
     this.products = this.orderService.getProductos();
     this.productService.product$.subscribe((product) => {
       if (product) {
-        this.orderService.agregarProducto({ ...product, cantidad: 1 });
+        this.orderService.agregarProducto({ ...product, cantidadProducto: 1 });
       }
     });
 
     this.products.forEach((product) => {
-      const subtotal = product.precio * product.cantidad;
-      this.subtotales[product.id] = subtotal;
+      const subtotal = product.precioProducto * product.cantidadProducto;
+      this.subtotales[product.idProducto] = subtotal;
     });
     this.calcularTotal();
   }

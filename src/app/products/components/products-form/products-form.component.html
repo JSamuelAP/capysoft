@@ -8,7 +8,7 @@
     <div class="flex flex-column gap-1">
       <label for="nombre">Nombre</label>
       <input
-        formControlName="nombre"
+        formControlName="nombreProducto"
         pInputText
         type="text"
         id="nombre"
@@ -18,7 +18,7 @@
     <div class="flex flex-column gap-1">
       <label for="precio">Precio</label>
       <p-inputNumber
-        formControlName="precio"
+        formControlName="precioProducto"
         inputId="precio"
         class="p-fluid"
         mode="currency"
@@ -30,7 +30,7 @@
     <div class="flex flex-column gap-1">
       <label for="categoria">Categoria</label>
       <p-dropdown
-        formControlName="categoria"
+        formControlName="categoriaProducto"
         [options]="categorias"
         optionLabel="nombre"
         placeholder="Seleccione una categoría"

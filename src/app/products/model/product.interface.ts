@@ -1,6 +1,7 @@
 export interface Product {
-  id: number;
-  nombre: string;
-  precio: number;
-  categoria: 'bebida' | 'postre' | 'comida';
+  idProducto: number;
+  nombreProducto: string;
+  precioProducto: number;
+  categoriaProducto: 'bebida' | 'postre' | 'comida';
+  imagenProducto: string;
 }
