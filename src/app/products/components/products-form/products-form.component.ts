@@ -47,6 +47,7 @@ export class ProductsFormComponent implements OnInit {
     precioProducto: [''],
     categoriaProducto: [null],
     foto: [null],
+    imagenProducto: [''],
   };
   isEditing: boolean = false;
   @ViewChild('fileUpload') fileUpload!: FileUpload;
@@ -71,7 +72,7 @@ export class ProductsFormComponent implements OnInit {
         this.isEditing = true;
         this.form.patchValue({
           ...product,
-          categoria: this.categorias?.find(
+          categoriaProducto: this.categorias?.find(
             (category) => category.nombre === product.categoriaProducto
           ),
         });
@@ -101,17 +102,14 @@ export class ProductsFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const producto: Product = {
+      ...this.form.value,
+      categoriaProducto: this.form.value.categoriaProducto.nombre,
+    };
     if (this.isEditing)
-      this.productService
-        .editProduct(this.form.value)
-        .subscribe(this.showMessage);
+      this.productService.editProduct(producto).subscribe(this.showMessage);
     else
-      this.productService
-        .createProduct({
-          ...this.form.value,
-          categoriaProducto: this.form.value.categoriaProducto.nombre,
-        })
-        .subscribe(this.showMessage);
+      this.productService.createProduct(producto).subscribe(this.showMessage);
     this.reset();
   }
 
