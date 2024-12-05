@@ -6,6 +6,7 @@ import { CardModule } from 'primeng/card';
 
 import { Product } from '../../model/product.interface';
 import { DeleteProductButtonComponent } from '../delete-product-button/delete-product-button.component';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'product-card',
@@ -29,13 +30,17 @@ export class ProductCardComponent {
   @Input()
   editable: boolean = false;
 
+  constructor(public productService: ProductService) {}
+
   onButtonSelectClick() {
-    // TODO: Cargar producto a la orden
-    console.log(this.product);
+    this.emitProduct();
   }
 
   onButtonEditClick() {
-    // TODO: Cargar datos al formulario
-    console.info(this.product);
+    this.emitProduct();
+  }
+
+  emitProduct() {
+    this.productService.emitProudct(this.product);
   }
 }

@@ -6,6 +6,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 import { Product } from '../../model/product.interface';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'delete-product-button',
@@ -21,13 +22,14 @@ export class DeleteProductButtonComponent {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private productsService: ProductService
   ) {}
 
   confirm(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `¿Estás seguro de querer eliminar el producto ${this.producto.nombre}?`,
+      message: `¿Estás seguro de querer eliminar el producto ${this.producto.nombreProducto}?`,
       header: 'Eliminar',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
@@ -36,10 +38,11 @@ export class DeleteProductButtonComponent {
       rejectIcon: 'none',
 
       accept: () => {
+        this.productsService.deleteProduct(this.producto);
         this.messageService.add({
           severity: 'success',
-          summary: `Producto ${this.producto.id} eliminado`,
-          detail: this.producto.nombre,
+          summary: `Producto ${this.producto.idProducto} eliminado`,
+          detail: this.producto.nombreProducto,
         });
       },
     });

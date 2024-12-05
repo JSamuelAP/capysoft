@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 
-import { Product } from '../../model/product.interface';
+import { ProductOrder } from '../../model/product.interface';
 import { Caja } from '../../model/caja.interface';
 
 @Component({
@@ -25,10 +25,10 @@ export class EstadisticaCardComponent {
   moneyAmount?: number;
 
   @Input()
-  product?: Product;
+  product?: ProductOrder;
 
   @Input()
-  products?: Product[];
+  products?: ProductOrder[];
 
   @Input()
   cajas?: Caja[];

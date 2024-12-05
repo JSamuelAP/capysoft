@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { EstadisticaCardComponent } from '../estadistica-card/estadistica-card.component';
-import { Product } from '../../model/product.interface';
+import { ProductOrder } from '../../model/product.interface';
 import { Caja } from '../../model/caja.interface';
 
 @Component({
@@ -13,11 +13,13 @@ import { Caja } from '../../model/caja.interface';
 })
 export class EstadisticaGridComponent {
   total: number = 2500;
-  masVendido: Product = {
-    id: 1,
-    nombre: 'Capuccino',
-    cantidad: 12,
-    precio: 4,
+  masVendido: ProductOrder = {
+    idProducto: 1,
+    nombreProducto: 'Capuccino',
+    cantidadProducto: 12,
+    categoriaProducto: 'bebida',
+    precioProducto: 4,
+    imagenProducto: '',
   };
   cajas: Caja[] = [
     { nombre: 'Caja 003', dinero: 1500 },
@@ -25,10 +27,38 @@ export class EstadisticaGridComponent {
     { nombre: 'Caja 001', dinero: 300 },
     { nombre: 'Caja 004', dinero: 200 },
   ];
-  productos: Product[] = [
-    { id: 1, nombre: 'Café Americano', cantidad: 10, precio:5 },
-    { id: 2, nombre: 'Latte', cantidad: 7, precio:10},
-    { id: 3, nombre: 'Sandwich de pollo', cantidad: 2, precio:9},
-    { id: 4, nombre: 'Pay de queso', cantidad: 1 , precio:7},
+  productos: ProductOrder[] = [
+    {
+      idProducto: 1,
+      nombreProducto: 'Café Americano',
+      cantidadProducto: 10,
+      precioProducto: 5,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
+    },
+    {
+      idProducto: 2,
+      nombreProducto: 'Latte',
+      cantidadProducto: 7,
+      precioProducto: 10,
+      categoriaProducto: 'bebida',
+      imagenProducto: '',
+    },
+    {
+      idProducto: 3,
+      nombreProducto: 'Sandwich de pollo',
+      cantidadProducto: 2,
+      precioProducto: 9,
+      categoriaProducto: 'comida',
+      imagenProducto: '',
+    },
+    {
+      idProducto: 4,
+      nombreProducto: 'Pay de queso',
+      cantidadProducto: 1,
+      precioProducto: 7,
+      categoriaProducto: 'postre',
+      imagenProducto: '',
+    },
   ];
 }

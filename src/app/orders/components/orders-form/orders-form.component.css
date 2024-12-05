@@ -10,3 +10,21 @@
 .mt-1rem{
     margin-top: -1rem;
 }
+
+.empty-products-message {
+    background-color: #a2daf9;
+    color: #000000; 
+    border: 1px solid #a2daf9; 
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 10px 0;
+  }
+  
+  .icon-warning {
+    font-size: 1.5em;
+    margin-right: 8px;
+  }
+  
