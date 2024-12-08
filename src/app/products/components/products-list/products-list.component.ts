@@ -39,13 +39,9 @@ export class ProductsListComponent implements OnInit {
       const searchTerm: string = params['q'];
 
       if (category) {
-        this.productService
-          .getProductsByCategory(category)
-          .subscribe((data) => (this.products = data));
+        this.productService.getProductsByCategory(category);
       } else if (searchTerm) {
-        this.productService
-          .getProductsBySearchTerm(searchTerm)
-          .subscribe((data) => (this.products = data));
+        this.productService.getProductsBySearchTerm(searchTerm);
       } else {
         this.loadProducts();
       }

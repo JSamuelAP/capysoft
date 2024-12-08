@@ -27,17 +27,38 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    this.http.get<Product[]>(this.API_URL).subscribe((data) => {
-      this.products.next(data);
+    this.http.get<Product[]>(this.API_URL).subscribe({
+      next: (data) => {
+        this.products.next(data);
+      },
+      error: () => {
+        this.products.next([]);
+      },
     });
   }
 
-  getProductsByCategory(category: string): Observable<Product[]> {
-    return of([]);
+  getProductsByCategory(category: string) {
+    this.http
+      .get<Product[]>(`${this.API_URL}/categoria/${category}`)
+      .subscribe({
+        next: (data) => {
+          this.products.next(data);
+        },
+        error: () => {
+          this.products.next([]);
+        },
+      });
   }
 
-  getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
-    return of([]);
+  getProductsBySearchTerm(searchTerm: string) {
+    this.http.get<Product[]>(`${this.API_URL}/nombre/${searchTerm}`).subscribe({
+      next: (data) => {
+        this.products.next(data);
+      },
+      error: () => {
+        this.products.next([]);
+      },
+    });
   }
 
   createProduct(product: ProductWithPhoto): Observable<Product> {
