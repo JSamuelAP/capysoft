@@ -8,6 +8,7 @@
       class="input-color w-20rem"
       id="username"
       [(ngModel)]="usuario"
+      required
     />
     <label class="label-text-color" for="username">Usuario</label>
   </p-floatLabel>
@@ -17,6 +18,7 @@
       type="password"
       class="input-color w-20rem"
       [(ngModel)]="password"
+      required
     />
     <label class="label-text-color" for="password">Contraseña</label>
   </p-floatLabel>
@@ -26,6 +28,6 @@
     pButton
     label="Iniciar sesión"
     class="btn-sesion text-white w-20rem"
-    (click)="retorna()"
+    (click)="onLogin()"
   ></button>
 </div>

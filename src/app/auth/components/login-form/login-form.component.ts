@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'login-form',
@@ -13,20 +14,22 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     PasswordModule,
     FloatLabelModule,
     ButtonModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.css'
+  styleUrl: './login-form.component.css',
 })
 export class LoginFormComponent {
-
   usuario: string = '';
-
   password: string = '';
-  
-  retorna = () => {
-    const datos = {usuario: this.usuario, password: this.password}
-    console.log(datos);
-    return datos;
-  }
+
+  constructor(private authService: AuthService) {}
+
+  onLogin = () => {
+    if (!this.authService.login(this.usuario, this.password)) {
+      // TODO: Mostrar error
+      console.error('esta mal');
+    } else {
+    }
+  };
 }
