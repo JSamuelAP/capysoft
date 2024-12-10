@@ -28,7 +28,14 @@ export class CashRegisterTableComponent implements OnInit {
   constructor(private cashService: CashService) {}
 
   ngOnInit(): void {
-    this.cashService.getCajas().subscribe((data) => (this.cajas = data));
+    this.cashService.cajas$.subscribe((data) => {
+      this.cajas = data;
+    });
+    this.loadCajas();
+  }
+
+  loadCajas(): void {
+    this.cashService.getCajas();
   }
 
   onButtonEditClick(cash: Caja) {

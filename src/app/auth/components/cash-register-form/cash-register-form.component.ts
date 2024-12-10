@@ -34,6 +34,7 @@ import { Caja } from '../../model/caja.interface';
 export class CashRegisterFormComponent implements OnInit {
   form: FormGroup;
   defaultValues = {
+    id: [''],
     numero: [''],
     password: [''],
     estado: true,
