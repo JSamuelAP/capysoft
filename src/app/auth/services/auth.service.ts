@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   private user: any = null;
-  private API_URL = 'http://192.168.0.101:8090/api/users/users';
+  private API_URL = 'http://localhost:8090/api/users/users';
 
   constructor(private http: HttpClient) {}
 

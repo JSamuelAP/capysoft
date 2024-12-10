@@ -12,7 +12,7 @@ export class CashService {
   cash$ = this.cashSource.asObservable();
   private cajas = new BehaviorSubject<Caja[]>([]);
   cajas$ = this.cajas.asObservable();
-  private API_URL = 'http://192.168.0.101:8090/api/users/users';
+  private API_URL = 'http://localhost:8090/api/users/users';
 
   constructor(private http: HttpClient) {}
 
