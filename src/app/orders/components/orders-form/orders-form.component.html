@@ -13,6 +13,7 @@
           [precio]="product.precioProducto"
           [ammount]="product.cantidadProducto"
           (subtotalChange)="actualizarTotal($event)"
+          (ammountChange)="product.cantidadProducto = $event"
         ></orders-ammount>
       </div>
       <p-divider />
