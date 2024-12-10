@@ -93,10 +93,10 @@ export class ProductsFormComponent implements OnInit {
 
   onCancel() {
     this.reset();
+    this.isEditing = false;
   }
 
   reset() {
-    this.isEditing = false;
     this.form = this.fb.group(this.defaultValues);
     this.fileUpload.clear();
   }
@@ -114,7 +114,6 @@ export class ProductsFormComponent implements OnInit {
   }
 
   showMessage = (producto: Product) => {
-    console.log(producto);
     this.messageService.add({
       severity: 'success',
       summary: `Producto ${
@@ -122,5 +121,6 @@ export class ProductsFormComponent implements OnInit {
       } con éxito`,
       detail: producto.nombreProducto,
     });
+    this.isEditing = false;
   };
 }
