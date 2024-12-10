@@ -19,6 +19,7 @@ import { OrderService } from '../../services/order.service';
 import { cabeceraOrden } from '../../model/cabeceraOrden.interface';
 import { OrdersAmmountComponent } from '../orders-ammount/orders-ammount.component';
 import { cuerpoOrden } from '../../model/cuerpoOrden.interface';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'pay-orders',
@@ -46,7 +47,8 @@ export class PayOrdersComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private orderService: OrderService,
-    private orderAmmount : OrdersAmmountComponent
+    private orderAmmount: OrdersAmmountComponent,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -70,27 +72,26 @@ export class PayOrdersComponent {
       accept: () => {
         const cabecera: cabeceraOrden = {
           numOrden: 0,
-          usuarios: '1',
+          usuarios: this.authService.getUser().id || 1,
           totalPrecio: this.baseTotal,
           propina: this.propina,
           fecha: new Date().toISOString().split('T')[0],
           hora: new Date().toTimeString().split(' ')[0],
         };
- 
+
         this.orderService.postCabeceraOrden(cabecera).subscribe({
           next: (responseCabecera) => {
-  
             this.products.forEach((product) => {
               const cuerpoOrden: cuerpoOrden = {
                 idCuerpo: 0,
-                num_orden: responseCabecera.numOrden, 
+                num_orden: responseCabecera.numOrden,
                 idProducto: product.idProducto,
                 nombreProducto: product.nombreProducto,
                 cantidadProducto: product.cantidadProducto,
               };
               this.orderAmmount.enviarCuerpoOrden(cuerpoOrden);
             });
-  
+
             this.messageService.add({
               severity: 'success',
               summary: 'Exitosa.',
@@ -123,8 +124,7 @@ export class PayOrdersComponent {
       },
     });
   };
-  
-  
+
   LimpiarCuenta = () => {
     this.baseTotal = 0;
     this.propina = 0;
