@@ -19,11 +19,19 @@ export class AuthService {
     this.user = null;
   }
 
+  setUser(user: any) {
+    this.user = user;
+  }
+
   getUser(): any {
     return this.user;
   }
 
   isAuthenticated(): boolean {
     return this.user !== null;
+  }
+
+  isAdmin(): boolean {
+    return this.user.rol === 'admin';
   }
 }

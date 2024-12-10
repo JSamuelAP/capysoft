@@ -32,6 +32,7 @@ export class LoginFormComponent {
   onLogin = () => {
     this.authService.login(this.usuario, this.password).subscribe({
       next: (data) => {
+        this.authService.setUser(data);
         this.router.navigate(['/products']);
       },
       error: () => {
