@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 
 import { Caja } from '../../model/caja.interface';
+import { CashService } from '../../services/cash.service';
 
 @Component({
   selector: 'cash-switch',
@@ -15,4 +16,10 @@ import { Caja } from '../../model/caja.interface';
 export class CashSwitchComponent {
   @Input()
   caja!: Caja;
+
+  constructor(private cashService: CashService) {}
+
+  changeStatus() {
+    this.cashService.editarCaja(this.caja);
+  }
 }

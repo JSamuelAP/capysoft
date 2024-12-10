@@ -1,19 +1,49 @@
-<p-card [header]="titulo">
-  <form class="flex flex-column gap-4">
+<p-toast />
+<p-card [header]="isEditing ? 'Editar caja' : 'Dar de alta caja'">
+  <form
+    class="flex flex-column gap-4"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
     <div class="flex flex-column gap-1">
       <label for="numCaja">Número de caja</label>
       <input
         pInputText
+        formControlName="numero"
         type="text"
         id="numCaja"
         placeholder="000"
         maxlength="3"
+        required
       />
     </div>
     <div class="flex flex-column gap-1">
       <label for="password">Contraseña</label>
-      <p-password inputId="password" class="p-fluid" />
+      <p-password
+        formControlName="password"
+        inputId="password"
+        class="p-fluid"
+        required
+      />
     </div>
-    <p-button label="Agregar" size="large" class="p-fluid" />
+    <div class="flex gap-3">
+      <p-button
+        label="Cancelar"
+        size="large"
+        class="w-full"
+        styleClass="w-full"
+        severity="secondary"
+        icon="pi pi-ban"
+        (onClick)="onCancel()"
+      />
+      <p-button
+        [label]="isEditing ? 'Actualizar' : 'Agregar'"
+        size="large"
+        class="w-full"
+        styleClass="w-full"
+        [icon]="isEditing ? 'pi pi-pencil' : 'pi pi-plus'"
+        type="submit"
+      />
+    </div>
   </form>
 </p-card>
