@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private user: any = null;
+  private API_URL = 'http://192.168.0.101:8090/api/users/users';
+
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): boolean {
-    if (username === 'user' && password === 'password') {
-      this.user = { username };
-      return true;
-    }
-    return false;
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/login`, { username, password });
   }
 
   logout(): void {
