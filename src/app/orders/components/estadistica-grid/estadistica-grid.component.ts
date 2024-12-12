@@ -27,7 +27,7 @@ export class EstadisticaGridComponent {
         console.error('Error al obtener los productos más vendidos:', err);
       },
     });
-    
+
     this.orderService.getProductoMasVendido().subscribe({
       next: (product: ProductOrder) => {
         this.masVendido = product;
