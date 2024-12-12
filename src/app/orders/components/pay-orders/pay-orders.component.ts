@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -36,7 +37,7 @@ import { AuthService } from '../../../auth/services/auth.service';
   templateUrl: './pay-orders.component.html',
   styleUrl: './pay-orders.component.css',
 })
-export class PayOrdersComponent {
+export class PayOrdersComponent implements OnInit {
   @Input() total!: number; // Total sin propina
   @Input() products!: ProductOrder[];
   @Output() limpiarProductos = new EventEmitter<void>();
@@ -100,8 +101,8 @@ export class PayOrdersComponent {
             });
 
             setTimeout(() => {
-              this.LimpiarCuenta();
-            }, 1000);
+              this.limpiarCuenta();
+            }, 0);
           },
           error: (err) => {
             console.error('Error al enviar la cabecera:', err);
@@ -125,7 +126,7 @@ export class PayOrdersComponent {
     });
   };
 
-  LimpiarCuenta = () => {
+  limpiarCuenta = () => {
     this.baseTotal = 0;
     this.propina = 0;
     this.total = 0;

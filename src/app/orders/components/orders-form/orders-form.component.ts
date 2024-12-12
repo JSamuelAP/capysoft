@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,7 @@ import { OrdersAmmountComponent } from '../orders-ammount/orders-ammount.compone
 import { ProductOrder } from '../../model/product.interface';
 import { ProductService } from '../../../products/services/product.service';
 import { OrderService } from '../../services/order.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'orders-form',
@@ -23,11 +24,13 @@ import { OrderService } from '../../services/order.service';
   templateUrl: './orders-form.component.html',
   styleUrl: './orders-form.component.css',
 })
-export class OrdersFormComponent implements OnInit {
+export class OrdersFormComponent implements OnInit, OnDestroy {
   products: ProductOrder[] = [];
 
   total: number = 0;
   subtotales: { [key: number]: number } = {};
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private productService: ProductService,
@@ -35,18 +38,29 @@ export class OrdersFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.total = 0;
     this.products = this.orderService.getProductos();
-    this.productService.product$.subscribe((product) => {
-      if (product) {
-        this.orderService.agregarProducto({ ...product, cantidadProducto: 1 });
-      }
-    });
+    this.productService.product$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((product) => {
+        if (product) {
+          this.orderService.agregarProducto({
+            ...product,
+            cantidadProducto: 1,
+          });
+        }
+      });
 
     this.products.forEach((product) => {
       const subtotal = product.precioProducto * product.cantidadProducto;
       this.subtotales[product.idProducto] = subtotal;
     });
     this.calcularTotal();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   actualizarTotal({ id, subtotal }: { id: number; subtotal: number }) {
@@ -57,14 +71,18 @@ export class OrdersFormComponent implements OnInit {
   }
 
   calcularTotal = () => {
-    this.total = Object.values(this.subtotales).reduce(
-      (acc, curr) => acc + curr,
-      0
-    );
+    setTimeout(() => {
+      this.total = Object.values(this.subtotales).reduce(
+        (acc, curr) => acc + curr,
+        0
+      );
+    }, 0);
   };
 
   handleLimpiarProductos = () => {
-    this.products = [];
-    this.total = 0;
+    this.orderService.vaciarProductos();
+    this.products = this.orderService.getProductos();
+    this.subtotales = {};
+    this.calcularTotal();
   };
 }

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
 import { OrderService } from '../../services/order.service';
@@ -23,7 +29,6 @@ export class OrdersAmmountComponent {
   }>();
   @Output() ammountChange = new EventEmitter<number>();
 
-
   constructor(private orderService: OrderService) {}
 
   ngOnInit() {
@@ -32,7 +37,6 @@ export class OrdersAmmountComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['ammount']) {
-      console.log('Ammount actualizado:', this.ammount);
       this.actualizarSubtotal();
     }
   }
@@ -65,13 +69,13 @@ export class OrdersAmmountComponent {
     this.subtotalChange.emit({ id: this.id, subtotal: this.subtotal });
   };
 
-  enviarCuerpoOrden = (productoCuerpoOrden : cuerpoOrden) => {
-    const cuerpoOrden : cuerpoOrden = {
-      idCuerpo: 0, 
+  enviarCuerpoOrden = (productoCuerpoOrden: cuerpoOrden) => {
+    const cuerpoOrden: cuerpoOrden = {
+      idCuerpo: 0,
       idProducto: productoCuerpoOrden.idProducto,
       nombreProducto: productoCuerpoOrden.nombreProducto,
       cantidadProducto: productoCuerpoOrden.cantidadProducto,
-      num_orden : productoCuerpoOrden.num_orden
+      num_orden: productoCuerpoOrden.num_orden,
     };
     endWith;
     this.orderService.postCuerpoOrden(cuerpoOrden).subscribe({

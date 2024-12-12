@@ -66,6 +66,10 @@
         </div>
       </ng-template>
     </p-confirmDialog>
-    <p-button (onClick)="pagarCuenta()" label="Finalizar Venta" [disabled]="products.length > 0 ? false : true"/>
+    <p-button
+      (onClick)="pagarCuenta()"
+      label="Finalizar Venta"
+      [disabled]="products.length === 0"
+    />
   </div>
 </div>

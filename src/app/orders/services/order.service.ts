@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ProductOrder } from '../model/product.interface';
 import { HttpClient } from '@angular/common/http';
 import { cabeceraOrden } from '../model/cabeceraOrden.interface';
-import { Observable } from 'rxjs';
 import { cuerpoOrden } from '../model/cuerpoOrden.interface';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { cuerpoOrden } from '../model/cuerpoOrden.interface';
 })
 export class OrderService {
   products: ProductOrder[] = [];
-  apiUrl_CuerpoOrden = 'http://localhost:8002/api/ordenes';
+  apiUrl_CuerpoOrden = 'http://localhost:8090/api/orders/orden';
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +25,7 @@ export class OrderService {
     if (index >= 0) {
       this.products[index].cantidadProducto++;
     } else {
+      product.cantidadProducto = 1;
       this.products.push(product);
     }
   };
@@ -34,6 +34,10 @@ export class OrderService {
     this.products = this.products.filter(
       (product) => product.idProducto !== id
     );
+  };
+
+  vaciarProductos = () => {
+    this.products = [];
   };
 
   postCabeceraOrden = (cabeceraOrden: cabeceraOrden) => {
