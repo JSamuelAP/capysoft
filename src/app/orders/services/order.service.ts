@@ -60,13 +60,11 @@ export class OrderService {
     );
   }
 
-  getProductoMasVendido() {
-    return this.http.get<ProductOrder[]>(
-      `${this.apiUrl_CuerpoOrden}/producto-mas-vendido`
-    );
+  getProductoMasVendido(){
+    return this.http.get<ProductOrder>(`${this.apiUrl_CuerpoOrden}/producto-mas-vendido`);
   }
 
-  getTotalVentas() {
+  getTotalVentas(){
     return this.http.get<number>(`${this.apiUrl_CuerpoOrden}/total-ventas`);
   }
 }
