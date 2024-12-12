@@ -49,7 +49,7 @@ export class OrderService {
   }
 
   getProductoMasVendido(){
-    return this.http.get<ProductOrder[]>(`${this.apiUrl_CuerpoOrden}/producto-mas-vendido`);
+    return this.http.get<ProductOrder>(`${this.apiUrl_CuerpoOrden}/producto-mas-vendido`);
   }
 
   getTotalVentas(){

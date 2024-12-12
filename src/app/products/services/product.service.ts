@@ -13,7 +13,7 @@ export class ProductService {
 
   private productSource = new Subject<Product>();
   product$ = this.productSource.asObservable();
-  private API_URL = 'http://192.168.0.101:8090/api/products/producto';
+  private API_URL = 'http://localhost:8090/api/products/producto';
 
   constructor(private http: HttpClient) {}
 
