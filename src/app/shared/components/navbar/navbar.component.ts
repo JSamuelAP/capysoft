@@ -27,6 +27,10 @@ export class NavbarComponent implements OnInit {
         route: '/auth/register',
       },
       {
+        label: 'Ordenar',
+        route: '/orders',
+      },
+      {
         label: 'Ventas',
         route: '/orders/dashboard',
       },

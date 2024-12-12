@@ -10,7 +10,7 @@ import { cuerpoOrden } from '../model/cuerpoOrden.interface';
 })
 export class OrderService {
   products: ProductOrder[] = [];
-  apiUrl_CuerpoOrden = 'http://localhost:8090/api/orders/orden';
+  apiUrl_CuerpoOrden = 'http://localhost:8002/api/ordenes';
 
   constructor(private http: HttpClient) {}
 
@@ -36,24 +36,30 @@ export class OrderService {
     );
   };
 
-  postCabeceraOrden = (cabeceraOrden : cabeceraOrden) => {
-    return this.http.post<cabeceraOrden>(this.apiUrl_CuerpoOrden, cabeceraOrden);
-  }
+  postCabeceraOrden = (cabeceraOrden: cabeceraOrden) => {
+    return this.http.post<cabeceraOrden>(
+      this.apiUrl_CuerpoOrden,
+      cabeceraOrden
+    );
+  };
 
   postCuerpoOrden(cuerpoOrden: cuerpoOrden) {
-    return this.http.post<cuerpoOrden>(`${this.apiUrl_CuerpoOrden}/${cuerpoOrden.num_orden}/cuerpos`, cuerpoOrden);
+    return this.http.post<cuerpoOrden>(
+      `${this.apiUrl_CuerpoOrden}/${cuerpoOrden.num_orden}/cuerpos`,
+      cuerpoOrden
+    );
   }
 
-  getProductosMasVendidos(){
-    return this.http.get<ProductOrder[]>(`${this.apiUrl_CuerpoOrden}/top-5-productos`)
+  getProductosMasVendidos() {
+    return this.http.get<ProductOrder[]>(
+      `${this.apiUrl_CuerpoOrden}/top-5-productos`
+    );
   }
 
   getProductoMasVendido(){
     return this.http.get<ProductOrder>(`${this.apiUrl_CuerpoOrden}/producto-mas-vendido`);
-  }
 
-  getTotalVentas(){
+  getTotalVentas() {
     return this.http.get<number>(`${this.apiUrl_CuerpoOrden}/total-ventas`);
   }
-
 }

@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { Caja } from '../../model/caja.interface';
 import { CashSwitchComponent } from '../cash-switch/cash-switch.component';
 import { DeleteButtonComponent } from '../delete-button/delete-button.component';
+import { CashService } from '../../services/cash.service';
 
 @Component({
   selector: 'cash-register-table',
@@ -22,26 +23,22 @@ import { DeleteButtonComponent } from '../delete-button/delete-button.component'
   styleUrl: './cash-register-table.component.css',
 })
 export class CashRegisterTableComponent implements OnInit {
-  cajas!: Caja[];
+  cajas: Caja[] = [];
+
+  constructor(private cashService: CashService) {}
 
   ngOnInit(): void {
-    this.cajas = [
-      {
-        numero: '001',
-        estado: true,
-      },
-      {
-        numero: '002',
-        estado: false,
-      },
-      {
-        numero: '003',
-        estado: true,
-      },
-      {
-        numero: '004',
-        estado: true,
-      },
-    ];
+    this.cashService.cajas$.subscribe((data) => {
+      this.cajas = data;
+    });
+    this.loadCajas();
+  }
+
+  loadCajas(): void {
+    this.cashService.getCajas();
+  }
+
+  onButtonEditClick(cash: Caja) {
+    this.cashService.emitCash(cash);
   }
 }

@@ -6,6 +6,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 import { Product } from '../../model/product.interface';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'delete-product-button',
@@ -21,7 +22,8 @@ export class DeleteProductButtonComponent {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private productsService: ProductService
   ) {}
 
   confirm(event: Event) {
@@ -36,6 +38,7 @@ export class DeleteProductButtonComponent {
       rejectIcon: 'none',
 
       accept: () => {
+        this.productsService.deleteProduct(this.producto);
         this.messageService.add({
           severity: 'success',
           summary: `Producto ${this.producto.idProducto} eliminado`,

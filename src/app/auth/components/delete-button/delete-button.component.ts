@@ -6,6 +6,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 import { Caja } from '../../model/caja.interface';
+import { CashService } from '../../services/cash.service';
 
 @Component({
   selector: 'delete-button',
@@ -20,6 +21,7 @@ export class DeleteButtonComponent {
   caja!: Caja;
 
   constructor(
+    private cashService: CashService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
@@ -36,6 +38,7 @@ export class DeleteButtonComponent {
       rejectIcon: 'none',
 
       accept: () => {
+        this.cashService.eliminarCaja(this.caja);
         this.messageService.add({
           severity: 'success',
           summary: 'Caja eliminada',

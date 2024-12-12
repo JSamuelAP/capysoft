@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CalendarModule } from 'primeng/calendar';
 
 import { EstadisticaGridComponent } from '../../components/estadistica-grid/estadistica-grid.component';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-ventas',
@@ -11,4 +13,10 @@ import { EstadisticaGridComponent } from '../../components/estadistica-grid/esta
   templateUrl: './dashboard-ventas.component.html',
   styleUrl: './dashboard-ventas.component.css',
 })
-export class DashboardVentasComponent {}
+export class DashboardVentasComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    if (!this.authService.isAdmin()) this.router.navigate(['products']);
+  }
+}

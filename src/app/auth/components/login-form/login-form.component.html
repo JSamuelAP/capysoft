@@ -8,6 +8,7 @@
       class="input-color w-20rem"
       id="username"
       [(ngModel)]="usuario"
+      required
     />
     <label class="label-text-color" for="username">Usuario</label>
   </p-floatLabel>
@@ -17,15 +18,24 @@
       type="password"
       class="input-color w-20rem"
       [(ngModel)]="password"
+      required
     />
     <label class="label-text-color" for="password">Contraseña</label>
   </p-floatLabel>
 </div>
-<div class="card flex justify-content-center mt-4">
+<div
+  class="card flex flex-column justify-content-center align-items-center mt-4"
+>
   <button
     pButton
     label="Iniciar sesión"
     class="btn-sesion text-white w-20rem"
-    (click)="retorna()"
+    (click)="onLogin()"
   ></button>
+  <div
+    class="bg-red-100 mt-3 p-3 border-round text-red-900 w-20rem text-center"
+    *ngIf="isError"
+  >
+    Usuario o contraseña incorrecta
+  </div>
 </div>

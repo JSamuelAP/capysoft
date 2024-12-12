@@ -1,71 +1,121 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  of,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 import { Product } from '../model/product.interface';
 import { ProductWithPhoto } from '../model/productWithPhoto';
+import { ResponsePhoto } from '../model/responsePhoto.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products: Product[] = [];
-
   private productSource = new Subject<Product>();
   product$ = this.productSource.asObservable();
+  private products = new BehaviorSubject<Product[]>([]);
+  products$ = this.products.asObservable();
   private API_URL = 'http://localhost:8090/api/products/producto';
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.API_URL);
+  getProducts() {
+    this.http.get<Product[]>(this.API_URL).subscribe({
+      next: (data) => {
+        this.products.next(data);
+      },
+      error: () => {
+        this.products.next([]);
+      },
+    });
   }
 
-  getProductsByCategory(category: string): Observable<Product[]> {
-    return of(
-      this.products.filter((product) => product.categoriaProducto === category)
-    );
+  getProductsByCategory(category: string) {
+    this.http
+      .get<Product[]>(`${this.API_URL}/categoria/${category}`)
+      .subscribe({
+        next: (data) => {
+          this.products.next(data);
+        },
+        error: () => {
+          this.products.next([]);
+        },
+      });
   }
 
-  getProductsBySearchTerm(searchTerm: string): Observable<Product[]> {
-    return of(
-      this.products.filter((product) =>
-        product.nombreProducto.includes(searchTerm)
-      )
-    );
+  getProductsBySearchTerm(searchTerm: string) {
+    this.http.get<Product[]>(`${this.API_URL}/nombre/${searchTerm}`).subscribe({
+      next: (data) => {
+        this.products.next(data);
+      },
+      error: () => {
+        this.products.next([]);
+      },
+    });
   }
 
   createProduct(product: ProductWithPhoto): Observable<Product> {
     return this.http.post<Product>(this.API_URL, product).pipe(
-      map((response) => {
+      switchMap((response) => {
         if (product.foto) {
-          this.uploadPhoto(product.foto, response.idProducto).subscribe(
-            (data) => {
-              response = data['producto'];
-              return response;
-            }
+          return this.uploadPhoto(product.foto, response.idProducto).pipe(
+            map((data) => data.producto)
           );
+        } else {
+          return of(response);
         }
-        return response;
+      }),
+      tap((newProduct) => {
+        this.products.value.push(newProduct);
+        this.products.next(this.products.value);
       })
     );
   }
 
-  uploadPhoto(archivo: File, id: number): Observable<any> {
+  uploadPhoto(archivo: File, id: number): Observable<ResponsePhoto> {
     const formData = new FormData();
     formData.append('archivo', archivo);
     formData.append('id', id.toString());
-    return this.http.post(`${this.API_URL}/upload`, formData);
+    return this.http.post<ResponsePhoto>(`${this.API_URL}/upload`, formData);
   }
 
   editProduct(product: ProductWithPhoto): Observable<Product> {
-    this.products = this.products.map((p) => {
-      if (p.idProducto === product.idProducto) p = product;
-      return p;
+    return this.http
+      .put<Product>(`${this.API_URL}/${product.idProducto}`, product)
+      .pipe(
+        switchMap((response) => {
+          if (product.foto) {
+            return this.uploadPhoto(product.foto, response.idProducto).pipe(
+              map((data) => data.producto)
+            );
+          } else {
+            return of(response);
+          }
+        }),
+        tap((newProduct) => {
+          const updatedProducts = this.products.value.map((p) => {
+            if (p.idProducto === newProduct.idProducto) p = newProduct;
+            return p;
+          });
+          this.products.next(updatedProducts);
+        })
+      );
+  }
+
+  deleteProduct(product: ProductWithPhoto) {
+    this.http.delete(`${this.API_URL}/${product.idProducto}`).subscribe(() => {
+      const updatedProducts = this.products.value.filter(
+        (p) => p.idProducto !== product.idProducto
+      );
+      this.products.next(updatedProducts);
     });
-    if (product.foto)
-      this.uploadPhoto(product.foto, 1).subscribe((data) => console.log(data));
-    return of(product);
   }
 
   emitProudct(product: Product) {
@@ -73,6 +123,8 @@ export class ProductService {
   }
 
   getImgUrl(product: Product): string {
-    return `${this.API_URL}/upload/img/${product.imagenProducto}`;
+    if (product.imagenProducto)
+      return `${this.API_URL}/upload/img/${product.imagenProducto}`;
+    else return './assets/placeholder.jpeg';
   }
 }
